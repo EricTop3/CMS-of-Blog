@@ -15,6 +15,10 @@ module.exports = {
     //   'vuex'
     // ]
   },
+  // output：模块的输出文件，其中有如下参数：
+  // filename: 打包后的文件名
+  // path: 打包文件存放的绝对路径。
+  // publicPath: 网站运行时的访问路径。
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -77,8 +81,9 @@ module.exports = {
     ])
   ],
   resolve: {
+    // 模块别名定义，方便后续直接引用别名，无须多写长长的地址
     alias: {
-      'vue$': 'vue/dist/vue'
+      'vue$': 'vue/dist/vue'// 后面直接引用 require(“vue$”)即可引用到模块
     }
   },
   devServer: {
@@ -101,10 +106,12 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
+    new webpack.optimize.UglifyJsPlugin({// 压缩代码
       compress: {
         warnings: false
       }
+      // ,
+      // except: ['$super', '$', 'exports', 'require']    //排除关键字
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
